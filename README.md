@@ -1,0 +1,3 @@
+# mijournal
+
+A journaling app
