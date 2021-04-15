@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
-const journalSchema = require('Journal')
 
 const userSchema = new Schema({
     firstName: String,
@@ -11,7 +10,6 @@ const userSchema = new Schema({
         required: false
     },
     password: String,
-    journal: journalSchema
 })
 
 const User = mongoose.model('User', userSchema)
