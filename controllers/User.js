@@ -2,8 +2,7 @@ const User = require('../models/User')
 
 const UserController = {
     createUser: function (req, res) {
-        // User.create(req)
-        console.log(req.data)
+        User.create({ ...req.body })
         res.send('User created')
     }
 }
