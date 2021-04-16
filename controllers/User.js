@@ -19,11 +19,15 @@ const UserController = {
         if (error) {
             res.send(error)
         } else {
-            User.create({ ...req.body }).then(() => {
+            
+            const data = new User({ ...value })
+
+            data.save().then(() => {
                 res.send('User created')
             }).catch((err) => {
                 res.send(err)
             })
+           
         }
     }
 }
