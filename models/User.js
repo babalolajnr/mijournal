@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 const uniqueValidator = require('mongoose-unique-validator')
+const journalSchema = require('./Journal')
 
 const userSchema = new Schema({
     firstName: String,
@@ -14,7 +15,8 @@ const userSchema = new Schema({
         type: Number,
         required: false
     },
-    password: String
+    password: String,
+    journals : [journalSchema]
 }, {
     timestamps: true,
 })
