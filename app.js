@@ -4,6 +4,7 @@ const port = 3000
 const app = express()
 const helmet = require('helmet') // Helmet helps to secure Express apps by setting various HTTP headers.
 const UserRouter = require('./routes/UserRoute')
+const JournalRouter = require('./routes/JournalRoute')
 
 const moongooseOptions = {
     useNewUrlParser: true,
@@ -27,4 +28,5 @@ app.use(helmet())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use('/', UserRouter)
+app.use('/user', UserRouter)
+app.use('/journal', JournalRouter)
