@@ -2,7 +2,7 @@ const User = require('../models/User')
 const Joi = require('joi')
 
 const UserController = {
-    createUser: function (req, res) {
+    storeUser: async (req, res) => {
 
         // Joi validation schema
         const schema = Joi.object({
@@ -19,7 +19,7 @@ const UserController = {
         if (error) {
             res.send(error)
         } else {
-            
+
             const data = new User({ ...value })
 
             data.save().then(() => {
