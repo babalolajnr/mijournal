@@ -1,8 +1,9 @@
 const User = require('../models/User')
 const Joi = require('joi')
+const bcrypt = require('bcrypt')
 
 const UserController = {
-    storeUser: async (req, res) => {
+    register: async (req, res) => {
 
         // Joi validation schema
         const schema = Joi.object({
@@ -18,16 +19,25 @@ const UserController = {
 
         if (error) {
             res.send(error)
+            res.status(222)
         } else {
+
+            const hashedPassword = await bcrypt.genSalt().then((hash) => {
+                return bcrypt.hash(value.password, hash)
+            })
+
+            value.password = hashedPassword
 
             const data = new User({ ...value })
 
             data.save().then(() => {
                 res.send('User created')
+                res.status(201)
             }).catch((err) => {
                 res.send(err)
+                res.status(500)
             })
-           
+
         }
     }
 }
