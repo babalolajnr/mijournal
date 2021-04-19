@@ -8,11 +8,11 @@ const app = express()
 const helmet = require('helmet') // Helmet helps to secure Express apps by setting various HTTP headers.
 const passport = require('passport')
 const initializePassport = require('./config/passport')
-const User = require("./models/User")
 const flash = require('express-flash')
 const session = require('express-session')
 const JournalRouter = require('./routes/JournalRoute')
 const UserRouter = require('./routes/UserRoute')
+const checkIsAuthenticated = require('./middlewares/checkIsAuthenticated')
 
 initializePassport(passport)
 
@@ -55,8 +55,9 @@ app.post('/login', passport.authenticate('local', {
     successMessage: 'Welcome',
     successRedirect: '/'
 }))
-app.get('/', (req, res) => {
-    res.send('Hello')
+
+app.get('/', checkIsAuthenticated, (req, res) => {
+    res.send(`Hello ${req.user.firstName}`)
 })
-app.use('/user', UserRouter)
+app.use('/user', checkIsAuthenticated, UserRouter)
 app.use('/journal', JournalRouter)
