@@ -57,7 +57,7 @@ app.post('/login', passport.authenticate('local', {
 }))
 
 app.get('/', checkIsAuthenticated, (req, res) => {
-    res.send(`Hello ${req.user.firstName}`)
+    res.send(`Hello ${req.user.firstName} ${req.user.lastName}`)
 })
 app.use('/user', checkIsAuthenticated, UserRouter)
-app.use('/journal', JournalRouter)
+app.use('/journal', checkIsAuthenticated, JournalRouter)
