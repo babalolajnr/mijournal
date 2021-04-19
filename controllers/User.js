@@ -22,6 +22,7 @@ const UserController = {
             res.status(222)
         } else {
 
+            // hash password
             const hashedPassword = await bcrypt.genSalt().then((hash) => {
                 return bcrypt.hash(value.password, hash)
             })
