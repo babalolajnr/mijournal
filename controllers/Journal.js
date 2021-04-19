@@ -24,6 +24,15 @@ const journalController = {
                 res.send(err)
             })
         }
+    },
+    getAllJournals: async (req, res) => {
+        let user = req.user.id
+        user = await User.findById(user)
+
+        const journals = await user.journals
+
+        res.send(journals)
+
     }
 }
 
