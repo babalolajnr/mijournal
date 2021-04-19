@@ -7,16 +7,18 @@ const userSchema = new Schema({
     firstName: String,
     lastName: String,
     email: {
+        index: true,
         unique: true,
         type: String
     },
     phone: {
         unique: true,
-        type: Number,
-        required: false
+        type: String,
+        required: false,
+        index: { unique: true, sparse: true },
     },
     password: String,
-    journals : [journalSchema]
+    journals: [journalSchema]
 }, {
     timestamps: true,
 })
