@@ -30,9 +30,6 @@ mongoose.connect('mongodb://localhost:27017/mijournal', moongooseOptions)
         console.log(err)
     })
 
-app.listen(port, () => {
-    console.log(`Listening on ${port} ...`)
-})
 
 app.use(helmet())
 app.use(express.json())
@@ -61,3 +58,5 @@ app.get('/', checkIsAuthenticated, (req, res) => {
 })
 app.use('/user', checkIsAuthenticated, UserRouter)
 app.use('/journal', checkIsAuthenticated, JournalRouter)
+
+module.exports = app
