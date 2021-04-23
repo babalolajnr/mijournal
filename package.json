@@ -23,6 +23,8 @@
     "passport-local-mongoose": "^6.1.0"
   },
   "devDependencies": {
-    "nodemon": "*"
+    "chai": "^4.3.4",
+    "nodemon": "*",
+    "supertest": "^6.1.3"
   }
 }
