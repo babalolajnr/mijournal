@@ -2,9 +2,10 @@
   "name": "mijournal",
   "version": "1.0.0",
   "description": "A journaling app",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive --exit tests",
+    "serve": "nodemon server.js"
   },
   "author": "Abdulqudduus Babalola",
   "license": "ISC",
