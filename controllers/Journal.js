@@ -1,5 +1,5 @@
 const Joi = require('joi')
-const User = require('../models/User')
+const User = require('../db/models/User')
 
 
 const journalController = {
@@ -19,7 +19,7 @@ const journalController = {
             journals.push({ ...value })
 
             user.save().then(() => {
-                res.send('Journal Added')
+                res.status(201).send('Journal Added')
             }).catch((err) => {
                 res.send(err)
             })
