@@ -2,8 +2,6 @@ if (process.env.NODE_ENV != 'production') {
     require('dotenv').config()
 }
 const express = require("express")
-const mongoose = require('mongoose')
-const port = 3000
 const app = express()
 const helmet = require('helmet') // Helmet helps to secure Express apps by setting various HTTP headers.
 const passport = require('passport')
@@ -13,23 +11,9 @@ const session = require('express-session')
 const JournalRouter = require('./routes/JournalRoute')
 const UserRouter = require('./routes/UserRoute')
 const checkIsAuthenticated = require('./middlewares/checkIsAuthenticated')
+const register = require('./controllers/auth/register')
 
 initializePassport(passport)
-
-const moongooseOptions = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-}
-
-//mongoose connection
-mongoose.connect('mongodb://localhost:27017/mijournal', moongooseOptions)
-    .then(() => {
-        console.log('Database connection established')
-    }).catch((err) => {
-        console.log(err)
-    })
-
 
 app.use(helmet())
 app.use(express.json())
@@ -54,8 +38,10 @@ app.post('/login', passport.authenticate('local', {
 }))
 
 app.get('/', checkIsAuthenticated, (req, res) => {
-    res.send(`Hello ${req.user.firstName} ${req.user.lastName}`)
+    // res.send(`Hello ${req.user.firstName} ${req.user.lastName}`)
+    res.status(500).json({ message: 'oh no' })
 })
+app.post('/register', register)
 app.use('/user', checkIsAuthenticated, UserRouter)
 app.use('/journal', checkIsAuthenticated, JournalRouter)
 
