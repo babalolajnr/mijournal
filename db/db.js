@@ -9,7 +9,13 @@ const moongooseOptions = {
     useCreateIndex: true,
 }
 
-const DB_URI = 'mongodb://localhost:27017/mijournal'
+let DB_URI;
+
+if (process.env.NODE_ENV == 'test') {
+    DB_URI = 'mongodb://localhost:27017/mijournaltest'
+} else {
+    DB_URI = 'mongodb://localhost:27017/mijournal'
+}
 
 /**
  * Connect to database
