@@ -12,9 +12,9 @@ const moongooseOptions = {
 let DB_URI;
 
 if (process.env.NODE_ENV == 'test') {
-    DB_URI = 'mongodb://localhost:27017/mijournaltest'
+    DB_URI = process.env.TEST_DATABASE_URL
 } else {
-    DB_URI = 'mongodb://localhost:27017/mijournal'
+    DB_URI = process.env.DATABASE_URL
 }
 
 /**
