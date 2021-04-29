@@ -11,22 +11,44 @@ const moongooseOptions = {
 
 const DB_URI = 'mongodb://localhost:27017/mijournal'
 
+/**
+ * Connect to database
+ * @returns Promise
+ */
 const connect = () => {
 
     return new Promise((resolve, reject) => {
 
         //mongoose connection
         mongoose.connect(DB_URI, moongooseOptions)
-            .then(() => {
-                return resolve()
-            }).catch((err) => {
-                return reject(err)
-            })
-
+            .then(() => resolve())
+            .catch((err) => reject(err))
     })
 }
+
+/**
+ * Disconnect database connection
+ * @returns Promise
+ */
 const close = () => {
-    return mongoose.disconnect()
+    return new Promise((resolve, reject) => {
+        mongoose.disconnect()
+            .then(() => resolve())
+            .catch((err) => reject(err))
+    })
 }
 
-module.exports = { connect, close }
+/**
+ * Drop database 
+ * @param {*} done 
+ * @returns Promise
+ */
+const refreshDatabase = () => {
+    return new Promise((resolve, reject) => {
+        mongoose.connection.db.dropDatabase()
+            .then(() => resolve())
+            .catch((err) => reject(err))
+    })
+}
+
+module.exports = { connect, close, refreshDatabase }
