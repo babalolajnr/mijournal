@@ -1,15 +1,10 @@
+process.env.NODE_ENV = "test"
 
 const expect = require('chai').expect
 const request = require('supertest')
 
 const app = require('../../app')
 const db = require('../../db/db')
-
-const moongooseOptions = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-}
 
 describe('POST /users', () => {
     beforeEach(() => {
