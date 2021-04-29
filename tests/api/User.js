@@ -12,13 +12,16 @@ const moongooseOptions = {
 }
 
 describe('POST /users', () => {
-    before(async () => {
-        await db.connect()
+    beforeEach(() => {
+        db.connect()
+        db.refreshDatabase()
     })
 
-    after(async () => {
-        await db.close()
+    afterEach(() => {
+        db.refreshDatabase()
     })
+
+    after(() => db.close())
 
     it('OK, a new user can be registered', done => {
 
@@ -35,8 +38,6 @@ describe('POST /users', () => {
             .send(data)
             .set('Accept', 'application/json')
             .expect(201, done)
-
-
 
     }).timeout(6000)
 
