@@ -2,6 +2,7 @@ process.env.NODE_ENV = "test"
 
 const expect = require('chai').expect
 const request = require('supertest')
+const Faker = require('faker')
 
 const app = require('../../app')
 const db = require('../../db/db')
@@ -20,13 +21,15 @@ describe('POST /users', () => {
 
     it('OK, a new user can be registered', done => {
 
+        const password = Faker.internet.password(10, true)
+
         const data = {
-            firstName: "abdulqudduus",
-            lastName: "babalola",
-            email: "newssr@gmail.com",
-            phone: "0901645465",
-            password: "12345678",
-            passwordConfirmation: "12345678"
+            firstName: Faker.name.firstName(),
+            lastName: Faker.name.lastName(),
+            email: Faker.internet.email(),
+            phone: Faker.phone.phoneNumber(),
+            password: password,
+            passwordConfirmation: password
         }
 
         request(app).post('/register')
